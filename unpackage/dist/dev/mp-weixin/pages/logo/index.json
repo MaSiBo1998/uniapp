@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "logo页面",
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/button/index"
+  }
+}
