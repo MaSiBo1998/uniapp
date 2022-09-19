@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "客服页面",
-  "usingComponents": {}
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/button/index"
+  }
 }

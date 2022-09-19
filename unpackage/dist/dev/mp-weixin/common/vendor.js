@@ -1,6 +1,6 @@
-(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
-/* 0 */,
-/* 1 */
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
+
+/***/ 1:
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -2537,7 +2537,137 @@ uni$1;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 2 */
+
+/***/ 11:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 2:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -2567,7 +2697,8 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
+
+/***/ 3:
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
   \*************************************************************/
@@ -3030,7 +3161,8 @@ function resolveLocaleChain(locale) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 4 */
+
+/***/ 4:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -9083,184 +9215,29 @@ internalMixin(Vue);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 5 */
-/*!**********************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/pages.json ***!
-  \**********************************************************************************/
+
+/***/ 5:
+/*!*********************************!*\
+  !*** D:/work/uniapp/pages.json ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */
-/*!*********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/wxcomponents/vant/button/index.js ***!
-  \*********************************************************************************************************/
+/***/ 51:
+/*!********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/button/index.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var _component = __webpack_require__(/*! ../common/component */ 37);
-var _button = __webpack_require__(/*! ../mixins/button */ 39);
-var _version = __webpack_require__(/*! ../common/version */ 40);
+var _component = __webpack_require__(/*! ../common/component */ 52);
+var _button = __webpack_require__(/*! ../mixins/button */ 54);
+var _version = __webpack_require__(/*! ../common/version */ 55);
 var mixins = [_button.button];
 if ((0, _version.canIUseFormFieldButton)()) {
   mixins.push('wx://form-field-button');
@@ -9322,15 +9299,16 @@ if ((0, _version.canIUseFormFieldButton)()) {
     } } });
 
 /***/ }),
-/* 37 */
-/*!*************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/wxcomponents/vant/common/component.js ***!
-  \*************************************************************************************************************/
+
+/***/ 52:
+/*!************************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/common/component.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.VantComponent = VantComponent;var _basic = __webpack_require__(/*! ../mixins/basic */ 38);
+Object.defineProperty(exports, "__esModule", { value: true });exports.VantComponent = VantComponent;var _basic = __webpack_require__(/*! ../mixins/basic */ 53);
 function mapKeys(source, target, map) {
   Object.keys(map).forEach(function (key) {
     if (source[key]) {
@@ -9376,10 +9354,11 @@ function VantComponent(vantOptions) {
 }
 
 /***/ }),
-/* 38 */
-/*!*********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/wxcomponents/vant/mixins/basic.js ***!
-  \*********************************************************************************************************/
+
+/***/ 53:
+/*!********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/mixins/basic.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9395,15 +9374,16 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.basic = vo
     } } });exports.basic = basic;
 
 /***/ }),
-/* 39 */
-/*!**********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/wxcomponents/vant/mixins/button.js ***!
-  \**********************************************************************************************************/
+
+/***/ 54:
+/*!*********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/mixins/button.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.button = void 0;var _version = __webpack_require__(/*! ../common/version */ 40);
+Object.defineProperty(exports, "__esModule", { value: true });exports.button = void 0;var _version = __webpack_require__(/*! ../common/version */ 55);
 var button = Behavior({
   externalClasses: ['hover-class'],
   properties: {
@@ -9447,15 +9427,16 @@ var button = Behavior({
     } } });exports.button = button;
 
 /***/ }),
-/* 40 */
-/*!***********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/wxcomponents/vant/common/version.js ***!
-  \***********************************************************************************************************/
+
+/***/ 55:
+/*!**********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/common/version.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.canIUseModel = canIUseModel;exports.canIUseFormFieldButton = canIUseFormFieldButton;exports.canIUseAnimate = canIUseAnimate;exports.canIUseGroupSetData = canIUseGroupSetData;exports.canIUseNextTick = canIUseNextTick;exports.canIUseCanvas2d = canIUseCanvas2d;exports.canIUseGetUserProfile = canIUseGetUserProfile;var _utils = __webpack_require__(/*! ./utils */ 41);
+Object.defineProperty(exports, "__esModule", { value: true });exports.canIUseModel = canIUseModel;exports.canIUseFormFieldButton = canIUseFormFieldButton;exports.canIUseAnimate = canIUseAnimate;exports.canIUseGroupSetData = canIUseGroupSetData;exports.canIUseNextTick = canIUseNextTick;exports.canIUseCanvas2d = canIUseCanvas2d;exports.canIUseGetUserProfile = canIUseGetUserProfile;var _utils = __webpack_require__(/*! ./utils */ 56);
 function compareVersion(v1, v2) {
   v1 = v1.split('.');
   v2 = v2.split('.');
@@ -9505,16 +9486,17 @@ function canIUseGetUserProfile() {
 }
 
 /***/ }),
-/* 41 */
-/*!*********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/wxcomponents/vant/common/utils.js ***!
-  \*********************************************************************************************************/
+
+/***/ 56:
+/*!********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/common/utils.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.range = range;exports.nextTick = nextTick;exports.getSystemInfoSync = getSystemInfoSync;exports.addUnit = addUnit;exports.requestAnimationFrame = requestAnimationFrame;exports.pickExclude = pickExclude;exports.getRect = getRect;exports.getAllRect = getAllRect;exports.groupSetData = groupSetData;exports.toPromise = toPromise;exports.getCurrentPage = getCurrentPage;Object.defineProperty(exports, "isDef", { enumerable: true, get: function get() {return _validator.isDef;} });var _validator = __webpack_require__(/*! ./validator */ 42);
-var _version = __webpack_require__(/*! ./version */ 40);
+Object.defineProperty(exports, "__esModule", { value: true });exports.range = range;exports.nextTick = nextTick;exports.getSystemInfoSync = getSystemInfoSync;exports.addUnit = addUnit;exports.requestAnimationFrame = requestAnimationFrame;exports.pickExclude = pickExclude;exports.getRect = getRect;exports.getAllRect = getAllRect;exports.groupSetData = groupSetData;exports.toPromise = toPromise;exports.getCurrentPage = getCurrentPage;Object.defineProperty(exports, "isDef", { enumerable: true, get: function get() {return _validator.isDef;} });var _validator = __webpack_require__(/*! ./validator */ 57);
+var _version = __webpack_require__(/*! ./version */ 55);
 
 function range(num, min, max) {
   return Math.min(Math.max(num, min), max);
@@ -9607,10 +9589,11 @@ function getCurrentPage() {
 }
 
 /***/ }),
-/* 42 */
-/*!*************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Documents/HBuilderProjects/uni-app-study/wxcomponents/vant/common/validator.js ***!
-  \*************************************************************************************************************/
+
+/***/ 57:
+/*!************************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/common/validator.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9648,5 +9631,6 @@ function isVideoUrl(url) {
 }
 
 /***/ })
-]]);
+
+}]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

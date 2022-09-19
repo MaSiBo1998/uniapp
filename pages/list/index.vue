@@ -1,7 +1,7 @@
 <template>
 	<view >
 		接单大厅
-		<van-button type="warning" @click="toUserPage">警告按钮</van-button>
+		<van-button type="warning" @click="toUserPage">客服链接</van-button>
 	</view>
 </template>
 
@@ -13,9 +13,17 @@
 		methods: {
 			toUserPage() {
 				uni.navigateTo({
-					url: '/pages/call/index'
+					url: '/pages/call/index?id=14&name=masibo',
+					events:{
+						dating: function(data){
+							console.log('客服页面被打开传来的数据',data)
+						}
+					},
+					success(res) {
+						res.eventChannel.emit('dating',{data:'跳转成功发送,大厅传递的数据'})
+					}
 				})
-				return
+				
 			}
 		},
 	}

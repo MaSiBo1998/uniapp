@@ -1,21 +1,22 @@
 <template>
 	<view >
 		我的订单
-		<van-button type="warning" @click="toUserPage">警告按钮</van-button>
+		<van-button type="warning" @click="toUserPage">个人中心</van-button>
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-			
+			return {
+				
+			}
 		},
 		methods: {
 			toUserPage() {
-				uni.navigateTo({
+				uni.switchTab({
 					url: '/pages/user/index'
 				})
-				return
 			}
 		},
 	}

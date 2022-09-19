@@ -2,8 +2,6 @@
 	<view class="container">
 		
 		<view class="intro">首页</view>
-		<text class="intro">详见当事人范德萨发热：</text>
-		<button>测试</button>
 		<uni-link :href="href" :text="href"></uni-link>
 	</view>
 </template>
