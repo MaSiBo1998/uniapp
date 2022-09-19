@@ -8,7 +8,9 @@
 <script>
 	export default {
 		data() {
-			
+			return {
+				
+			}
 		},
 		methods: {
 			toUserPage() {
@@ -16,7 +18,7 @@
 					url: '/pages/call/index?id=14&name=masibo',
 					events:{
 						dating: function(data){
-							console.log('客服页面被打开传来的数据',data)
+							console.log('主页面的事件',data)
 						}
 					},
 					success(res) {

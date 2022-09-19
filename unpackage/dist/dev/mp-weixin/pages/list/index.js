@@ -163,6 +163,8 @@ __webpack_require__.r(__webpack_exports__);
 var _default =
 {
   data: function data() {
+    return {};
+
 
   },
   methods: {
@@ -171,7 +173,7 @@ var _default =
         url: '/pages/call/index?id=14&name=masibo',
         events: {
           dating: function dating(data) {
-            console.log('客服页面被打开传来的数据', data);
+            console.log('主页面的事件', data);
           } },
 
         success: function success(res) {

@@ -105,8 +105,11 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    uniLink: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-link/components/uni-link/uni-link */ "uni_modules/uni-link/components/uni-link/uni-link").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-link/components/uni-link/uni-link.vue */ 44))
+    vanSwipe: function() {
+      return Promise.resolve().then(function webpackMissingModule() { var e = new Error("Cannot find module '@/wxcomponents/vant/swipe/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; })
+    },
+    vanSwipeItem: function() {
+      return Promise.resolve().then(function webpackMissingModule() { var e = new Error("Cannot find module '@/wxcomponents/vant/swipe-item/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; })
     }
   }
 } catch (e) {
@@ -169,11 +172,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
 var _default =
+
 {
   data: function data() {
     return {
-      href: 'https://uniapp.dcloud.io/component/README?id=uniui' };
+      images: [
+      'https://img01.yzcdn.cn/vant/apple-1.jpg',
+      'https://img01.yzcdn.cn/vant/apple-2.jpg'] };
+
 
   },
   methods: {} };exports.default = _default;

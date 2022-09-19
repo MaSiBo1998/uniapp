@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 Vue.config.productionTip = false
+import { Lazyload } from 'vant';
 
+Vue.use(Lazyload);
 App.mpType = 'app'
 
 const app = new Vue({

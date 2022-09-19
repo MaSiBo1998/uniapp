@@ -1,16 +1,22 @@
 <template>
 	<view class="container">
-		
-		<view class="intro">首页</view>
-		<uni-link :href="href" :text="href"></uni-link>
+		<van-swipe :autoplay="3000">
+		  <van-swipe-item v-for="(image, index) in images" :key="index">
+		    <img v-lazy="image" />
+		  </van-swipe-item>
+		</van-swipe>
 	</view>
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
-				href: 'https://uniapp.dcloud.io/component/README?id=uniui'
+				images: [
+				        'https://img01.yzcdn.cn/vant/apple-1.jpg',
+				        'https://img01.yzcdn.cn/vant/apple-2.jpg',
+				      ]
 			}
 		},
 		methods: {

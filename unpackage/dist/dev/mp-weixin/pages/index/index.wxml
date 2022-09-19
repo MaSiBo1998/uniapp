@@ -1,1 +1,1 @@
-<view class="container"><view class="intro">首页</view><uni-link vue-id="8dd740cc-1" href="{{href}}" text="{{href}}" bind:__l="__l"></uni-link></view>
+<view class="container"><van-swipe vue-id="8dd740cc-1" autoplay="{{3000}}" bind:__l="__l" vue-slots="{{['default']}}"><block wx:for="{{images}}" wx:for-item="image" wx:for-index="index" wx:key="index"><van-swipe-item vue-id="{{('8dd740cc-2-'+index)+','+('8dd740cc-1')}}" bind:__l="__l" vue-slots="{{['default']}}"><image class="_img"></image></van-swipe-item></block></van-swipe></view>
