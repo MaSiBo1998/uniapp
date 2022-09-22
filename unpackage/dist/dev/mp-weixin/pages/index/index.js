@@ -105,11 +105,11 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    vanSwipe: function() {
-      return Promise.resolve().then(function webpackMissingModule() { var e = new Error("Cannot find module '@/wxcomponents/vant/swipe/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; })
+    vanGrid: function() {
+      return __webpack_require__.e(/*! import() | wxcomponents/vant/grid/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/grid/index */ 44, 7))
     },
-    vanSwipeItem: function() {
-      return Promise.resolve().then(function webpackMissingModule() { var e = new Error("Cannot find module '@/wxcomponents/vant/swipe-item/index'"); e.code = 'MODULE_NOT_FOUND'; throw e; })
+    vanGridItem: function() {
+      return __webpack_require__.e(/*! import() | wxcomponents/vant/grid-item/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/grid-item/index */ 48, 7))
     }
   }
 } catch (e) {
@@ -165,8 +165,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
 //
 //
 //

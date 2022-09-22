@@ -1,6 +1,6 @@
-(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
-
-/***/ 1:
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
+/* 0 */,
+/* 1 */
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -766,8 +766,8 @@ function populateParameters(result) {var _result$brand =
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "3.6.2",
-    uniRuntimeVersion: "3.6.2",
+    uniCompileVersion: "3.6.3",
+    uniRuntimeVersion: "3.6.3",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -1464,7 +1464,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2359,7 +2359,6 @@ function parseBasePage(vuePageOptions, _ref6)
   var pageOptions = parseComponent(vuePageOptions);
 
   initHooks(pageOptions.methods, hooks$1, vuePageOptions);
-  initUnknownHooks(pageOptions.methods, vuePageOptions);
 
   pageOptions.methods.onLoad = function (query) {
     this.options = query;
@@ -2371,6 +2370,7 @@ function parseBasePage(vuePageOptions, _ref6)
     this.$vm.$mp.query = query; // 兼容 mpvue
     this.$vm.__call_hook('onLoad', query);
   };
+  initUnknownHooks(pageOptions.methods, vuePageOptions, ['onReady']);
 
   return pageOptions;
 }
@@ -2537,137 +2537,7 @@ uni$1;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-
-/***/ 11:
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 2:
+/* 2 */
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -2697,8 +2567,7 @@ module.exports = g;
 
 
 /***/ }),
-
-/***/ 3:
+/* 3 */
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
   \*************************************************************/
@@ -3161,8 +3030,7 @@ function resolveLocaleChain(locale) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-
-/***/ 4:
+/* 4 */
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -8688,7 +8556,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8709,14 +8577,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8802,7 +8670,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app-study","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9215,8 +9083,7 @@ internalMixin(Vue);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-
-/***/ 5:
+/* 5 */
 /*!*********************************!*\
   !*** D:/work/uniapp/pages.json ***!
   \*********************************/
@@ -9226,81 +9093,235 @@ internalMixin(Vue);
 
 
 /***/ }),
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/***/ 51:
-/*!********************************************************!*\
-  !*** D:/work/uniapp/wxcomponents/vant/button/index.js ***!
-  \********************************************************/
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */
+/*!******************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/grid/index.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var _component = __webpack_require__(/*! ../common/component */ 52);
-var _button = __webpack_require__(/*! ../mixins/button */ 54);
-var _version = __webpack_require__(/*! ../common/version */ 55);
-var mixins = [_button.button];
-if ((0, _version.canIUseFormFieldButton)()) {
-  mixins.push('wx://form-field-button');
-}
+var _component = __webpack_require__(/*! ../common/component */ 45);
+var _relation = __webpack_require__(/*! ../common/relation */ 47);
 (0, _component.VantComponent)({
-  mixins: mixins,
-  classes: ['hover-class', 'loading-class'],
-  data: {
-    baseStyle: '' },
-
+  relation: (0, _relation.useChildren)('grid-item'),
   props: {
-    formType: String,
-    icon: String,
-    classPrefix: {
-      type: String,
-      value: 'van-icon' },
+    square: {
+      type: Boolean,
+      observer: 'updateChildren' },
 
-    plain: Boolean,
-    block: Boolean,
-    round: Boolean,
-    square: Boolean,
-    loading: Boolean,
-    hairline: Boolean,
-    disabled: Boolean,
-    loadingText: String,
-    customStyle: String,
-    loadingType: {
-      type: String,
-      value: 'circular' },
+    gutter: {
+      type: null,
+      value: 0,
+      observer: 'updateChildren' },
 
-    type: {
-      type: String,
-      value: 'default' },
+    clickable: {
+      type: Boolean,
+      observer: 'updateChildren' },
 
-    dataset: null,
-    size: {
-      type: String,
-      value: 'normal' },
+    columnNum: {
+      type: Number,
+      value: 4,
+      observer: 'updateChildren' },
 
-    loadingSize: {
-      type: String,
-      value: '20px' },
+    center: {
+      type: Boolean,
+      value: true,
+      observer: 'updateChildren' },
 
-    color: String },
+    border: {
+      type: Boolean,
+      value: true,
+      observer: 'updateChildren' },
+
+    direction: {
+      type: String,
+      observer: 'updateChildren' },
+
+    iconSize: {
+      type: String,
+      observer: 'updateChildren' },
+
+    reverse: {
+      type: Boolean,
+      value: false,
+      observer: 'updateChildren' } },
+
 
   methods: {
-    onClick: function onClick(event) {var _this = this;
-      this.$emit('click', event);var _this$data =
-      this.data,canIUseGetUserProfile = _this$data.canIUseGetUserProfile,openType = _this$data.openType,getUserProfileDesc = _this$data.getUserProfileDesc,lang = _this$data.lang;
-      if (openType === 'getUserInfo' && canIUseGetUserProfile) {
-        wx.getUserProfile({
-          desc: getUserProfileDesc || '  ',
-          lang: lang || 'en',
-          complete: function complete(userProfile) {
-            _this.$emit('getuserinfo', userProfile);
-          } });
-
-      }
+    updateChildren: function updateChildren() {
+      this.children.forEach(function (child) {
+        child.updateStyle();
+      });
     } } });
 
 /***/ }),
-
-/***/ 52:
+/* 45 */
 /*!************************************************************!*\
   !*** D:/work/uniapp/wxcomponents/vant/common/component.js ***!
   \************************************************************/
@@ -9308,7 +9329,7 @@ if ((0, _version.canIUseFormFieldButton)()) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.VantComponent = VantComponent;var _basic = __webpack_require__(/*! ../mixins/basic */ 53);
+Object.defineProperty(exports, "__esModule", { value: true });exports.VantComponent = VantComponent;var _basic = __webpack_require__(/*! ../mixins/basic */ 46);
 function mapKeys(source, target, map) {
   Object.keys(map).forEach(function (key) {
     if (source[key]) {
@@ -9354,8 +9375,7 @@ function VantComponent(vantOptions) {
 }
 
 /***/ }),
-
-/***/ 53:
+/* 46 */
 /*!********************************************************!*\
   !*** D:/work/uniapp/wxcomponents/vant/mixins/basic.js ***!
   \********************************************************/
@@ -9374,8 +9394,165 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.basic = vo
     } } });exports.basic = basic;
 
 /***/ }),
+/* 47 */
+/*!***********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/common/relation.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ 54:
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.useParent = useParent;exports.useChildren = useChildren;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function useParent(name, onEffect) {
+  var path = "../".concat(name, "/index");
+  return {
+    relations: _defineProperty({},
+    path, {
+      type: 'ancestor',
+      linked: function linked() {
+        onEffect && onEffect.call(this);
+      },
+      linkChanged: function linkChanged() {
+        onEffect && onEffect.call(this);
+      },
+      unlinked: function unlinked() {
+        onEffect && onEffect.call(this);
+      } }),
+
+
+    mixin: Behavior({
+      created: function created() {var _this = this;
+        Object.defineProperty(this, 'parent', {
+          get: function get() {return _this.getRelationNodes(path)[0];} });
+
+        Object.defineProperty(this, 'index', {
+          // @ts-ignore
+          get: function get() {var _a, _b;return (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.children) === null || _b === void 0 ? void 0 : _b.indexOf(_this);} });
+
+      } }) };
+
+
+}
+function useChildren(name, onEffect) {
+  var path = "../".concat(name, "/index");
+  return {
+    relations: _defineProperty({},
+    path, {
+      type: 'descendant',
+      linked: function linked(target) {
+        onEffect && onEffect.call(this, target);
+      },
+      linkChanged: function linkChanged(target) {
+        onEffect && onEffect.call(this, target);
+      },
+      unlinked: function unlinked(target) {
+        onEffect && onEffect.call(this, target);
+      } }),
+
+
+    mixin: Behavior({
+      created: function created() {var _this2 = this;
+        Object.defineProperty(this, 'children', {
+          get: function get() {return _this2.getRelationNodes(path) || [];} });
+
+      } }) };
+
+
+}
+
+/***/ }),
+/* 48 */
+/*!***********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/grid-item/index.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var _component = __webpack_require__(/*! ../common/component */ 45);
+var _relation = __webpack_require__(/*! ../common/relation */ 47);
+var _link = __webpack_require__(/*! ../mixins/link */ 49);
+(0, _component.VantComponent)({
+  relation: (0, _relation.useParent)('grid'),
+  classes: ['content-class', 'icon-class', 'text-class'],
+  mixins: [_link.link],
+  props: {
+    icon: String,
+    iconColor: String,
+    iconPrefix: {
+      type: String,
+      value: 'van-icon' },
+
+    dot: Boolean,
+    info: null,
+    badge: null,
+    text: String,
+    useSlot: Boolean },
+
+  data: {
+    viewStyle: '' },
+
+  mounted: function mounted() {
+    this.updateStyle();
+  },
+  methods: {
+    updateStyle: function updateStyle() {
+      if (!this.parent) {
+        return;
+      }var _this$parent =
+      this.parent,data = _this$parent.data,children = _this$parent.children;var
+      columnNum = data.columnNum,border = data.border,square = data.square,gutter = data.gutter,clickable = data.clickable,center = data.center,direction = data.direction,reverse = data.reverse,iconSize = data.iconSize;
+      this.setData({
+        center: center,
+        border: border,
+        square: square,
+        gutter: gutter,
+        clickable: clickable,
+        direction: direction,
+        reverse: reverse,
+        iconSize: iconSize,
+        index: children.indexOf(this),
+        columnNum: columnNum });
+
+    },
+    onClick: function onClick() {
+      this.$emit('click');
+      this.jumpLink();
+    } } });
+
+/***/ }),
+/* 49 */
+/*!*******************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/mixins/link.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.link = void 0;var link = Behavior({
+  properties: {
+    url: String,
+    linkType: {
+      type: String,
+      value: 'navigateTo' } },
+
+
+  methods: {
+    jumpLink: function jumpLink() {var urlKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'url';
+      var url = this.data[urlKey];
+      if (url) {
+        if (this.data.linkType === 'navigateTo' &&
+        getCurrentPages().length > 9) {
+          wx.redirectTo({ url: url });
+        } else
+        {
+          wx[this.data.linkType]({ url: url });
+        }
+      }
+    } } });exports.link = link;
+
+/***/ }),
+/* 50 */,
+/* 51 */
 /*!*********************************************************!*\
   !*** D:/work/uniapp/wxcomponents/vant/mixins/button.js ***!
   \*********************************************************/
@@ -9383,7 +9560,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.basic = vo
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.button = void 0;var _version = __webpack_require__(/*! ../common/version */ 55);
+Object.defineProperty(exports, "__esModule", { value: true });exports.button = void 0;var _version = __webpack_require__(/*! ../common/version */ 52);
 var button = Behavior({
   externalClasses: ['hover-class'],
   properties: {
@@ -9427,8 +9604,7 @@ var button = Behavior({
     } } });exports.button = button;
 
 /***/ }),
-
-/***/ 55:
+/* 52 */
 /*!**********************************************************!*\
   !*** D:/work/uniapp/wxcomponents/vant/common/version.js ***!
   \**********************************************************/
@@ -9436,7 +9612,7 @@ var button = Behavior({
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.canIUseModel = canIUseModel;exports.canIUseFormFieldButton = canIUseFormFieldButton;exports.canIUseAnimate = canIUseAnimate;exports.canIUseGroupSetData = canIUseGroupSetData;exports.canIUseNextTick = canIUseNextTick;exports.canIUseCanvas2d = canIUseCanvas2d;exports.canIUseGetUserProfile = canIUseGetUserProfile;var _utils = __webpack_require__(/*! ./utils */ 56);
+Object.defineProperty(exports, "__esModule", { value: true });exports.canIUseModel = canIUseModel;exports.canIUseFormFieldButton = canIUseFormFieldButton;exports.canIUseAnimate = canIUseAnimate;exports.canIUseGroupSetData = canIUseGroupSetData;exports.canIUseNextTick = canIUseNextTick;exports.canIUseCanvas2d = canIUseCanvas2d;exports.canIUseGetUserProfile = canIUseGetUserProfile;var _utils = __webpack_require__(/*! ./utils */ 53);
 function compareVersion(v1, v2) {
   v1 = v1.split('.');
   v2 = v2.split('.');
@@ -9486,8 +9662,7 @@ function canIUseGetUserProfile() {
 }
 
 /***/ }),
-
-/***/ 56:
+/* 53 */
 /*!********************************************************!*\
   !*** D:/work/uniapp/wxcomponents/vant/common/utils.js ***!
   \********************************************************/
@@ -9495,8 +9670,8 @@ function canIUseGetUserProfile() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.range = range;exports.nextTick = nextTick;exports.getSystemInfoSync = getSystemInfoSync;exports.addUnit = addUnit;exports.requestAnimationFrame = requestAnimationFrame;exports.pickExclude = pickExclude;exports.getRect = getRect;exports.getAllRect = getAllRect;exports.groupSetData = groupSetData;exports.toPromise = toPromise;exports.getCurrentPage = getCurrentPage;Object.defineProperty(exports, "isDef", { enumerable: true, get: function get() {return _validator.isDef;} });var _validator = __webpack_require__(/*! ./validator */ 57);
-var _version = __webpack_require__(/*! ./version */ 55);
+Object.defineProperty(exports, "__esModule", { value: true });exports.range = range;exports.nextTick = nextTick;exports.getSystemInfoSync = getSystemInfoSync;exports.addUnit = addUnit;exports.requestAnimationFrame = requestAnimationFrame;exports.pickExclude = pickExclude;exports.getRect = getRect;exports.getAllRect = getAllRect;exports.groupSetData = groupSetData;exports.toPromise = toPromise;exports.getCurrentPage = getCurrentPage;Object.defineProperty(exports, "isDef", { enumerable: true, get: function get() {return _validator.isDef;} });var _validator = __webpack_require__(/*! ./validator */ 54);
+var _version = __webpack_require__(/*! ./version */ 52);
 
 function range(num, min, max) {
   return Math.min(Math.max(num, min), max);
@@ -9589,8 +9764,7 @@ function getCurrentPage() {
 }
 
 /***/ }),
-
-/***/ 57:
+/* 54 */
 /*!************************************************************!*\
   !*** D:/work/uniapp/wxcomponents/vant/common/validator.js ***!
   \************************************************************/
@@ -9630,7 +9804,78 @@ function isVideoUrl(url) {
   return VIDEO_REGEXP.test(url);
 }
 
-/***/ })
+/***/ }),
+/* 55 */
+/*!********************************************************!*\
+  !*** D:/work/uniapp/wxcomponents/vant/button/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-}]);
+"use strict";
+var _component = __webpack_require__(/*! ../common/component */ 45);
+var _button = __webpack_require__(/*! ../mixins/button */ 51);
+var _version = __webpack_require__(/*! ../common/version */ 52);
+var mixins = [_button.button];
+if ((0, _version.canIUseFormFieldButton)()) {
+  mixins.push('wx://form-field-button');
+}
+(0, _component.VantComponent)({
+  mixins: mixins,
+  classes: ['hover-class', 'loading-class'],
+  data: {
+    baseStyle: '' },
+
+  props: {
+    formType: String,
+    icon: String,
+    classPrefix: {
+      type: String,
+      value: 'van-icon' },
+
+    plain: Boolean,
+    block: Boolean,
+    round: Boolean,
+    square: Boolean,
+    loading: Boolean,
+    hairline: Boolean,
+    disabled: Boolean,
+    loadingText: String,
+    customStyle: String,
+    loadingType: {
+      type: String,
+      value: 'circular' },
+
+    type: {
+      type: String,
+      value: 'default' },
+
+    dataset: null,
+    size: {
+      type: String,
+      value: 'normal' },
+
+    loadingSize: {
+      type: String,
+      value: '20px' },
+
+    color: String },
+
+  methods: {
+    onClick: function onClick(event) {var _this = this;
+      this.$emit('click', event);var _this$data =
+      this.data,canIUseGetUserProfile = _this$data.canIUseGetUserProfile,openType = _this$data.openType,getUserProfileDesc = _this$data.getUserProfileDesc,lang = _this$data.lang;
+      if (openType === 'getUserInfo' && canIUseGetUserProfile) {
+        wx.getUserProfile({
+          desc: getUserProfileDesc || '  ',
+          lang: lang || 'en',
+          complete: function complete(userProfile) {
+            _this.$emit('getuserinfo', userProfile);
+          } });
+
+      }
+    } } });
+
+/***/ })
+]]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

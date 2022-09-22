@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "首页",
   "usingComponents": {
-    "van-swipe": "/wxcomponents/vant/swipe/index",
-    "van-swipe-item": "/wxcomponents/vant/swipe-item/index"
+    "van-grid": "/wxcomponents/vant/grid/index",
+    "van-grid-item": "/wxcomponents/vant/grid-item/index"
   }
 }

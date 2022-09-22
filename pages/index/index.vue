@@ -1,10 +1,8 @@
 <template>
 	<view class="container">
-		<van-swipe :autoplay="3000">
-		  <van-swipe-item v-for="(image, index) in images" :key="index">
-		    <img v-lazy="image" />
-		  </van-swipe-item>
-		</van-swipe>
+		<van-grid square direction="horizontal" :column-num="2">
+		  <van-grid-item v-for="value in 8" :key="value" icon="photo-o" text="文字" />
+		</van-grid>
 	</view>
 </template>
 
