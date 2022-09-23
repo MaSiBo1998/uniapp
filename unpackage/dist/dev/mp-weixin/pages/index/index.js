@@ -106,10 +106,10 @@ var components
 try {
   components = {
     vanGrid: function() {
-      return __webpack_require__.e(/*! import() | wxcomponents/vant/grid/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/grid/index */ 44, 7))
+      return __webpack_require__.e(/*! import() | wxcomponents/vant/grid/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/grid/index */ 50, 7))
     },
     vanGridItem: function() {
-      return __webpack_require__.e(/*! import() | wxcomponents/vant/grid-item/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/grid-item/index */ 48, 7))
+      return __webpack_require__.e(/*! import() | wxcomponents/vant/grid-item/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/grid-item/index */ 54, 7))
     }
   }
 } catch (e) {
@@ -164,7 +164,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -183,7 +193,21 @@ var _default =
 
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    toOrder: function toOrder(type) {
+      uni.navigateTo({
+        url: '/pages/orderGoods/index',
+        events: {
+          putOrderType: function putOrderType(type) {
+            return type;
+          } },
+
+        success: function success(res) {
+          res.eventChannel.emit('putOrderType', type);
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */

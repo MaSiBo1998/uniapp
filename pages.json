@@ -27,6 +27,12 @@
 			"style": {
 				"navigationBarTitleText": "客服页面"
 			}
+		},
+		{
+			"path": "pages/orderGoods/index",
+			"style": {
+				"navigationBarTitleText": "下单"
+			}
 		}
 	],
 	"globalStyle": {

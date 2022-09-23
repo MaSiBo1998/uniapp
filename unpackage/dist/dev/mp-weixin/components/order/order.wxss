@@ -1,0 +1,9 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+/* uni.scss */
+.type-top {
+  background-color: #FFFFFF;
+  margin-bottom: 5px;
+}
+

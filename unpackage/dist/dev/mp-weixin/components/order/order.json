@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-cell": "/wxcomponents/vant/cell/index",
+    "van-grid": "/wxcomponents/vant/grid/index",
+    "van-grid-item": "/wxcomponents/vant/grid-item/index"
+  },
+  "component": true
+}

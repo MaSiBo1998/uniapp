@@ -96,7 +96,7 @@ var components
 try {
   components = {
     vanButton: function() {
-      return __webpack_require__.e(/*! import() | wxcomponents/vant/button/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/button/index */ 55, 7))
+      return __webpack_require__.e(/*! import() | wxcomponents/vant/button/index */ "common/vendor").then(__webpack_require__.t.bind(null, /*! @/wxcomponents/vant/button/index */ 56, 7))
     }
   }
 } catch (e) {
